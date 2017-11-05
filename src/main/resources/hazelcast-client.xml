@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2008-2017, Hazelcast, Inc. All Rights Reserved.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<hazelcast-client xsi:schemaLocation="http://www.hazelcast.com/schema/client-config hazelcast-client-config-3.8.xsd"
+                  xmlns="http://www.hazelcast.com/schema/client-config"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <group>
+        <name>dev</name>
+        <password>dev-pass</password>
+    </group>
+
+    <network>
+        <cluster-members>
+            <!--
+            <address>127.0.0.1:5701</address>
+            -->
+            <!-- TEST -->
+            <address>172.17.22.131:5701</address>
+            <address>172.17.22.132:5701</address>
+            <!-- STAGE -->
+            <!--<address>172.18.22.241:5701</address>-->
+            <!--<address>172.18.22.242:5701</address>-->
+            <!-- PROD -->
+            <!--<address>172.16.22.145:5701</address>-->
+            <!--<address>172.16.22.146:5701</address>-->
+        </cluster-members>
+
+        <smart-routing>true</smart-routing>
+        <redo-operation>true</redo-operation>
+        <connection-timeout>5000</connection-timeout>
+        <connection-attempt-period>5000</connection-attempt-period>
+        <connection-attempt-limit>0</connection-attempt-limit>
+    </network>
+
+    <executor-pool-size>40</executor-pool-size>
+
+    <serialization>
+        <portable-version>1</portable-version>
+        <!--<use-native-byte-order>true</use-native-byte-order>-->
+        <!--<byte-order>BIG_ENDIAN</byte-order>-->
+        <!--<enable-compression>false</enable-compression>-->
+        <!--<enable-shared-object>true</enable-shared-object>-->
+        <!--<allow-unsafe>false</allow-unsafe>-->
+        <data-serializable-factories>
+            <data-serializable-factory factory-id="1">com.gmail.davlong79.hazelcast.serialization.identifieddataserializable.ShoppingCartDSFactory
+            </data-serializable-factory>
+        </data-serializable-factories>
+        <portable-factories>
+            <portable-factory factory-id="1">com.gmail.davlong79.hazelcast.serialization.portable.ShoppingCartPortableFactory</portable-factory>
+        </portable-factories>
+        <!--<serializers>-->
+            <!--<global-serializer override-java-serialization="true">com.hazelcast.examples.GlobalSerializerFactory-->
+            <!--</global-serializer>-->
+            <!--<serializer type-class="com.hazelcast.examples.DummyType"-->
+                        <!--class-name="com.hazelcast.examples.SerializerFactory"/>-->
+        <!--</serializers>-->
+        <!--<check-class-def-errors>true</check-class-def-errors>-->
+    </serialization>
+
+    <!--
+        Beware that near-cache eviction configuration is different for NATIVE in-memory format.
+        Proper eviction configuration example for NATIVE in-memory format :
+           `<eviction max-size-policy="USED_NATIVE_MEMORY_SIZE" eviction-policy="LFU" size="60"/>`
+
+    <near-cache name="default">
+        <time-to-live-seconds>1500</time-to-live-seconds>
+        <max-idle-seconds>900</max-idle-seconds>
+        <max-size>4000</max-size>
+        <eviction eviction-policy="LRU"/>
+    </near-cache>
+-->
+    <!--<near-cache name="sport-schedule-static-countrys"></near-cache>-->
+    <!--<near-cache name="sport-schedule-static-disciplines"></near-cache>-->
+    <!--<near-cache name="sport-schedule-static-bets"></near-cache>-->
+    <!--<near-cache name="sport-schedule-static-bet-virtuals"></near-cache>-->
+    <!--<near-cache name="sport-schedule-static-meetings"></near-cache>-->
+    <!--<near-cache name="sport-schedule-static-results"></near-cache>-->
+    <!--<near-cache name="sport-schedule-static-bet-groups"></near-cache>-->
+    <!--<near-cache name="sport-schedule-services-discipline-keys"></near-cache>-->
+    <!--<near-cache name="sport-schedule-services-bet-model-keys"></near-cache>-->
+    <!--<near-cache name="sport-schedule-services-bet-model-list-keys-by-discipline"></near-cache>-->
+    <!--<near-cache name="sport-schedule-services-bet-group-keys"></near-cache>-->
+    <!--<near-cache name="sport-schedule-services-bet-group-list-keys-by-discipline"></near-cache>-->
+    <!--<near-cache name="sport-schedule-services-static-result-list-keys"></near-cache>-->
+    <!--<near-cache name="sport-schedule-dynamic-bonus"></near-cache>-->
+    <!--<near-cache name="sport-schedule-dynamic-bonus-meeting"></near-cache>-->
+    <!--<near-cache name="sport-schedule-dynamic-bonus-systems"></near-cache>-->
+
+    <!--<user-code-deployment enabled="true">
+        <jarPaths>
+            <jarPath>/User/test/sample.jar</jarPath>
+            <jarPath>https://hazelcast.com/</jarPath>
+            <jarPath>file://User/test/sample.jar</jarPath>
+        </jarPaths>
+        <classNames>
+            <className>test.sampleClassName</className>
+        </classNames>
+    </user-code-deployment>-->
+
+</hazelcast-client>

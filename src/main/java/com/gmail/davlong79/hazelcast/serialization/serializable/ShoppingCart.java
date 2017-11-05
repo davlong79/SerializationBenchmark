@@ -14,7 +14,7 @@ import java.util.List;
 public class ShoppingCart implements IShoppingCart, Serializable {
     public long total = 0;
     public Date date;
-    public long id;
+    public long cartId;
     private List<ShoppingCartItem> items = new ArrayList<>();
 
     public void removeItem(int index) {
@@ -28,13 +28,13 @@ public class ShoppingCart implements IShoppingCart, Serializable {
     }
 
     @Override
-    public long getId() {
-        return id;
+    public long getCartId() {
+        return cartId;
     }
 
     @Override
-    public void setId(int id) {
-        this.id = id;
+    public void setCartId(int id) {
+        this.cartId = id;
     }
 
     @Override

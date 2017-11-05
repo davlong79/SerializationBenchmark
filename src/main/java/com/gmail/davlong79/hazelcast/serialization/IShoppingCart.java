@@ -6,8 +6,8 @@ import java.util.Date;
  * Created by Casa on 04/11/2017.
  */
 public interface IShoppingCart {
-    long getId();
-    void setId(int id);
+    long getCartId();
+    void setCartId(int id);
 
     void setDate(Date date);
 

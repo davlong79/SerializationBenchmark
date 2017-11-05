@@ -1,9 +1,12 @@
-package com.gmail.davlong79.hazelcast.serialization.externalizable;
+package com.gmail.davlong79.hazelcast.serialization.dataserializable;
 
 import com.gmail.davlong79.hazelcast.serialization.IShoppingCart;
 import com.gmail.davlong79.hazelcast.serialization.IShoppingCartItem;
+import com.hazelcast.nio.ObjectDataInput;
+import com.hazelcast.nio.ObjectDataOutput;
+import com.hazelcast.nio.serialization.DataSerializable;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,7 +14,7 @@ import java.util.List;
 /**
  * Created by Casa on 04/11/2017.
  */
-public class ShoppingCart implements IShoppingCart, Externalizable {
+public class ShoppingCart implements IShoppingCart, DataSerializable {
     public long total = 0;
     public Date date;
     public long cartId;
@@ -49,22 +52,23 @@ public class ShoppingCart implements IShoppingCart, Externalizable {
     }
 
     @Override
-    public void writeExternal(ObjectOutput out) throws IOException {
+    public void writeData(ObjectDataOutput out) throws IOException {
         out.writeLong(total);
         out.writeLong(date.getTime());
         out.writeLong(cartId);
         out.writeInt(items.size());
         items.forEach(item -> {
             try {
-                item.writeExternal(out);
+                item.writeData(out);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
+
     }
 
     @Override
-    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+    public void readData(ObjectDataInput in) throws IOException {
         total = in.readLong();
         date = new Date(in.readLong());
         cartId = in.readLong();
@@ -72,8 +76,9 @@ public class ShoppingCart implements IShoppingCart, Externalizable {
         items = new ArrayList<>(count);
         for (int i = 0; i < count; i++) {
             ShoppingCartItem item = new ShoppingCartItem();
-            item.readExternal(in);
+            item.readData(in);
             items.add(item);
         }
+
     }
 }
